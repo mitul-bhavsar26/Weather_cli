@@ -1,5 +1,5 @@
 import requests
-import json
+
 
 
 # Define the core components of our API request as constants
@@ -17,17 +17,21 @@ response = requests.get(request_url)
 # Check the status code of the response.
 # A status code of 200 means the request was successful.
 if response.status_code == 200:
-    
-    print("Success! The request was fulfilled.")
-    # Convert the response to JSON
     data = response.json()
+
+    # Store extracted values in variables
     temperature = data['main']['temp']
     humidity = data['main']['humidity']
-    # Print the result
-    print(f"Temperature: {temperature}K, Humidity: {humidity}%")
-    
+    weather_description = data['weather'][0]['description']
+    print()
+    print(f"Weather in {CITY}:")
+    print("-" * 20) 
+    print(f"Temperature: {temperature} K")
+    print(f"Humidity: {humidity} %")
+    print(f"Description: {weather_description.capitalize()}")   
+    print()
+
 else:
-   
     print(f"Error: The request failed with status code {response.status_code}")
 
 
