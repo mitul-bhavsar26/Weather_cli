@@ -1,4 +1,6 @@
 import requests
+import json
+
 
 # Define the core components of our API request as constants
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -17,11 +19,16 @@ response = requests.get(request_url)
 if response.status_code == 200:
     
     print("Success! The request was fulfilled.")
+    # Convert the response to JSON
+    data = response.json()
+    temperature = data['main']['temp']
+    humidity = data['main']['humidity']
+    # Print the result
+    print(f"Temperature: {temperature}K, Humidity: {humidity}%")
+    
 else:
    
     print(f"Error: The request failed with status code {response.status_code}")
-# Convert the response to JSON
-data = response.json()
 
-# Print the result
-print(data)
+
+
