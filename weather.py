@@ -1,9 +1,9 @@
 import requests
+import sys
 
 # Define constants
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
-API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
-CITY = "Cleveland"
+
 
 
 def get_weather_data(city, api_key):
@@ -55,10 +55,18 @@ def display_weather_data(data):
     print(f"Humidity: {data['humidity']} %")
     print(f"Description: {data['description'].capitalize()}")
     print()
-
-weather_data = get_weather_data(CITY, API_KEY)
-
-if weather_data:
-    display_weather_data(weather_data)
-else:
-    print("Unable to retrieve weather data.")
+    
+def main():
+    
+    #The main function to run the weather CLI tool.
+    
+    API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
+    CITY = "Cleveland"      
+    # 1. Get the data
+    weather_data = get_weather_data(CITY, API_KEY)
+     
+     # 2. If data was retrieved successfully, display it
+    if weather_data:
+        display_weather_data(weather_data)
+    else:
+        print("Unable to retrieve weather data.")
