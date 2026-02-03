@@ -70,3 +70,6 @@ def main():
         display_weather_data(weather_data)
     else:
         print("Unable to retrieve weather data.")
+# Entry point
+if __name__ == "__main__":
+    main()
