@@ -1,3 +1,4 @@
+import argparse
 import requests
 import sys
 
@@ -59,6 +60,10 @@ def display_weather_data(data):
 def main():
     
     #The main function to run the weather CLI tool.
+    
+    #create the argument parser
+    parser = argparse.ArgumentParser(description="Get the current weather for a specific city.")
+    parser.add_argument("city", help="The name of the city to get the weather for.")
     
     API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
     CITY = "Cleveland"      
