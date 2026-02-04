@@ -1,18 +1,19 @@
 import argparse
-import requests
 import sys
+import requests
+
 
 # Define constants
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 
 
-def get_weather_data(city, api_key):
+def get_weather_data(city, api_key, units="metric"):
     """
     Fetch weather data from OpenWeatherMap API.
     Returns a dictionary on success, None on failure.
     """
-    request_url = f"{BASE_URL}?q={city}&appid={api_key}"
+    request_url = f"{BASE_URL}?q={city}&appid={api_key}&units={units}"
 
     try:
         response = requests.get(request_url)
@@ -65,10 +66,25 @@ def main():
     parser = argparse.ArgumentParser(description="Get the current weather for a specific city.")
     parser.add_argument("city", help="The name of the city to get the weather for.")
     
+    # Add an optional argument for the units.
+    # 'choices' restricts the input to the given values.
+    # 'default' sets a fallback value if the argument is not provided.
+
+    parser.add_argument(
+        "--units",
+        choices=["metric", "imperial"],
+        default="metric",
+        help="The units for temperature (metric=Celsius, imperial=Fahrenheit). Default: metric",
+    )
+    
+    # This line reads the command-line input and returns the parsed arguments.
+    args = parser.parse_args()
+    
+    
     API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
-    CITY = "Cleveland"      
+        
     # 1. Get the data
-    weather_data = get_weather_data(CITY, API_KEY)
+    weather_data = get_weather_data(args.city, API_KEY, args.units)
      
      # 2. If data was retrieved successfully, display it
     if weather_data:
