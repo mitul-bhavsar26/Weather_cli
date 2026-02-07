@@ -15,6 +15,7 @@ def get_weather_data(city, api_key, units="metric"):
     """
     request_url = f"{BASE_URL}?q={city}&appid={api_key}&units={units}"
 
+
     try:
         response = requests.get(request_url)
         response.raise_for_status()
@@ -46,14 +47,16 @@ def get_weather_data(city, api_key, units="metric"):
         return None
 
 
-def display_weather_data(data):
+def display_weather_data(data, units):
     """
     Display weather data nicely.
     """
+    unit_symbol = "°C" if units == "metric" else "°F"
+    
     print()
     print(f"Weather in {data['city']}:")
     print("-" * 20)
-    print(f"Temperature: {data['temperature']} K")
+    print(f"Temperature: {data['temperature']}{unit_symbol}")
     print(f"Humidity: {data['humidity']} %")
     print(f"Description: {data['description'].capitalize()}")
     print()
@@ -88,7 +91,7 @@ def main():
      
      # 2. If data was retrieved successfully, display it
     if weather_data:
-        display_weather_data(weather_data)
+        display_weather_data(weather_data, args.units)
     else:
         print("Unable to retrieve weather data.")
 # Entry point
