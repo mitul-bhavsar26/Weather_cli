@@ -1,7 +1,13 @@
 import argparse
 import sys
+import os
+
+from dotenv import load_dotenv
 import requests
 
+# Call load_dotenv() to load environment variables from the .env file
+# This should be done as early as possible in the script's execution.
+load_dotenv()
 
 # Define constants
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -82,8 +88,6 @@ def main():
     
     # This line reads the command-line input and returns the parsed arguments.
     args = parser.parse_args()
-    
-    
     API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
         
     # 1. Get the data
