@@ -88,10 +88,20 @@ def main():
     
     # This line reads the command-line input and returns the parsed arguments.
     args = parser.parse_args()
-    API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
+    #API_KEY = "e0d1a458ae1c542756c32dd5f996e723"  # API key
+    
+     # os.getenv() will return the value of the key, or None if it's not found.
+    api_key = os.getenv("OPENWEATHER_API_KEY")   
+    
+     # Add a check to ensure the API key is available.
+    # This provides a clear error to the user if the .env file is missing or misconfigured.
+    if not api_key:
+        print("Error: OPENWEATHER_API_KEY not found.")
+        print("Please create a .env file and add your API key to it.")
+        sys.exit(1) # Exit the script with a non-zero status code to indicate an error.
         
     # 1. Get the data
-    weather_data = get_weather_data(args.city, API_KEY, args.units)
+    weather_data = get_weather_data(args.city, api_key, args.units)
      
      # 2. If data was retrieved successfully, display it
     if weather_data:
